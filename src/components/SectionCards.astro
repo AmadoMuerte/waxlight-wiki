@@ -12,6 +12,7 @@ interface Props {
 const { section } = Astro.props;
 const { locale } = Astro.locals.starlightRoute;
 const prefix = `${locale}/`;
+const base = import.meta.env.BASE_URL;
 
 const pages = (await getCollection('docs'))
 	.filter((entry) => entry.id.startsWith(`${prefix}${section}/`))
@@ -25,7 +26,11 @@ const pages = (await getCollection('docs'))
 <CardGrid>
 	{
 		pages.map((page) => (
-			<LinkCard title={page.data.title} href={`/${page.id}/`} description={page.data.description} />
+			<LinkCard
+				title={page.data.title}
+				href={`${base}${page.id}/`}
+				description={page.data.description}
+			/>
 		))
 	}
 </CardGrid>

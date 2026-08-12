@@ -1,0 +1,16 @@
+---
+// Site title with the logo inlined as a base64 data URI: the full-size PNG
+// (200 KB) is re-fetched on every page load, which makes the logo visibly
+// flicker in; the small inlined copy always paints instantly.
+import headLogo from '../assets/waxlight-head.png?inline';
+import config from 'virtual:starlight/user-config';
+
+const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title sl-flex">
+	<img alt={config.logo?.alt ?? ''} src={headLogo} width="96" height="96" />
+	<span class:list={{ 'sr-only': config.logo?.replacesTitle }} translate="no">
+		{siteTitle}
+	</span>
+</a>

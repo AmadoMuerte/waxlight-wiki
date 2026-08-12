@@ -7,15 +7,21 @@ import sitemap from '@astrojs/sitemap';
 import starlightImageZoom from 'starlight-image-zoom';
 import starlightGithubAlerts from 'starlight-github-alerts';
 import starlightScrollToTop from 'starlight-scroll-to-top';
+import { remarkBaseLinks } from './scripts/remark-base-links.mjs';
+
+const base = '/waxlight-wiki/';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://amadomuerte.github.io',
-	base: '/waxlight-wiki/',
+	base,
 	trailingSlash: 'always',
+	redirects: {
+		'/': `${base}en/`,
+	},
 	// starlight-image-zoom requires the unified() processor (Sätteri is not yet supported).
 	markdown: {
-		processor: unified(),
+		processor: unified({ remarkPlugins: [[remarkBaseLinks, base]] }),
 	},
 	integrations: [
 		sitemap(),
@@ -26,6 +32,7 @@ export default defineConfig({
 			logo: {
 				src: './src/assets/waxlight.png',
 				alt: 'Waxlight',
+				replacesTitle: true,
 			},
 			favicon: '/waxlight.png',
 			defaultLocale: 'en',
@@ -48,6 +55,7 @@ export default defineConfig({
 				ThemeProvider: './src/components/ThemeProvider.astro',
 				ThemeSelect: './src/components/ThemeSelect.astro',
 				PageTitle: './src/components/PageTitle.astro',
+				SiteTitle: './src/components/SiteTitle.astro',
 			},
 			head: [
 				{

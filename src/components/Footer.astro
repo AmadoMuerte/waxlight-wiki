@@ -1,7 +1,6 @@
 ---
 // Waxlight footer: the original Wiki's four-column footer.
 import EditLink from '@astrojs/starlight/components/EditLink.astro';
-import config from 'virtual:starlight/user-config';
 
 const LINKS = {
 	discord: 'https://discord.gg/CrRHvg9UVw',
@@ -14,30 +13,29 @@ const LINKS = {
 const { locale } = Astro.locals.starlightRoute;
 const t = Astro.locals.t;
 
-// English is the root locale and lives at `/`; Russian lives at `/ru/`.
-const home = locale === 'ru' ? '/ru/' : '/';
-const prefix = `/${locale}`;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const prefix = `${base}/${locale}`;
 ---
 
 <footer class="wax-footer">
 	<div class="wax-footer__wrap">
-		<div>
+		<div class="wax-footer__about">
 			<h4>Waxlight Launcher</h4>
 			<p>{t('waxlight.footerAbout')}</p>
 		</div>
-		<div>
+		<div class="wax-footer__group">
 			<h4>{t('waxlight.footerProject')}</h4>
 			<a href={LINKS.releases} target="_blank" rel="noopener">{t('waxlight.download')}</a>
 			<a href={LINKS.github} target="_blank" rel="noopener">GitHub</a>
 			<a href={LINKS.issues} target="_blank" rel="noopener">{t('waxlight.footerIssue')}</a>
 			<a href={LINKS.support} target="_blank" rel="noopener">{t('waxlight.footerSupport')}</a>
 		</div>
-		<div>
+		<div class="wax-footer__group">
 			<h4>{t('waxlight.footerCommunity')}</h4>
 			<a href={LINKS.discord} target="_blank" rel="noopener">{t('waxlight.footerDiscord')}</a>
 			<a href={`${prefix}/faq/`}>FAQ</a>
 		</div>
-		<div>
+		<div class="wax-footer__group">
 			<h4>{t('waxlight.footerPolicies')}</h4>
 			<a href={`${prefix}/policies/privacy/`}>{t('waxlight.footerPrivacy')}</a>
 			<a href={`${prefix}/policies/security/`}>{t('waxlight.footerSecurity')}</a>

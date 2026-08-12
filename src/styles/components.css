@@ -1,344 +1,406 @@
-/* ==========================================================================
-   Waxlight theme for Starlight.
-   Maps the Waxlight design tokens onto Starlight's `--sl-*` variable layer
-   and styles Starlight's components to reproduce the original Wiki look.
-   ========================================================================== */
+/* Waxlight theme for Starlight. Values live in tokens.css. */
 
-/* --------------------------------------------------------------------------
-   Starlight theme variables (dark). The original Waxlight Wiki is a
-   dark-only site, so both data-theme values resolve to the same palette.
-   -------------------------------------------------------------------------- */
 :root,
 :root[data-theme='dark'],
 :root[data-theme='light'],
 [data-theme='dark'] ::backdrop {
-	/* Surfaces */
 	--sl-color-white: var(--waxlight-paper-bright);
 	--sl-color-gray-1: var(--waxlight-paper);
 	--sl-color-gray-2: var(--waxlight-paper-muted);
 	--sl-color-gray-3: var(--waxlight-mist);
 	--sl-color-gray-4: var(--waxlight-mist-dim);
-	--sl-color-gray-5: rgba(241, 223, 189, 0.16);
+	--sl-color-gray-5: var(--waxlight-line);
 	--sl-color-gray-6: var(--waxlight-bark);
 	--sl-color-black: var(--waxlight-night);
-
-	/* Accent: Waxlight amber/copper */
 	--sl-color-accent-low: rgba(217, 140, 67, 0.14);
 	--sl-color-accent: var(--waxlight-amber);
 	--sl-color-accent-high: var(--waxlight-amber);
-	--sl-color-accent-hover: var(--waxlight-copper);
-	--sl-color-accent-dark: var(--waxlight-copper);
-
-	/* Semantic colors */
-	--sl-hue-orange: 27;
 	--sl-color-orange-low: rgba(217, 107, 67, 0.12);
 	--sl-color-orange: var(--waxlight-brick);
 	--sl-color-orange-high: #f0a58c;
-	--sl-hue-green: 96;
 	--sl-color-green-low: rgba(136, 174, 114, 0.12);
 	--sl-color-green: var(--waxlight-moss);
 	--sl-color-green-high: #bcd9ab;
-	--sl-hue-blue: 230;
 	--sl-color-blue-low: rgba(139, 156, 249, 0.14);
 	--sl-color-blue: var(--waxlight-blurple);
 	--sl-color-blue-high: #c4ccfb;
-	--sl-hue-red: 12;
 	--sl-color-red-low: rgba(217, 107, 67, 0.12);
 	--sl-color-red: var(--waxlight-brick);
 	--sl-color-red-high: #f0a58c;
-
-	/* Text & backgrounds */
-	--sl-color-text: var(--sl-color-gray-2);
+	--sl-color-text: var(--waxlight-paper-muted);
 	--sl-color-text-accent: var(--waxlight-amber);
-	--sl-color-text-invert: #24170c;
-	--sl-color-bg: var(--waxlight-night);
-	--sl-color-bg-nav: var(--waxlight-night-nav);
-	--sl-color-bg-sidebar: var(--waxlight-night);
+	--sl-color-text-invert: var(--waxlight-night-deep);
+	--sl-color-bg: transparent;
+	--sl-color-bg-nav: rgba(18, 16, 13, 0.9);
+	--sl-color-bg-sidebar: rgba(13, 12, 10, 0.96);
 	--sl-color-bg-inline-code: rgba(0, 0, 0, 0.32);
 	--sl-color-bg-accent: var(--waxlight-amber);
-	--sl-color-hairline-light: rgba(241, 223, 189, 0.16);
-	--sl-color-hairline: rgba(241, 223, 189, 0.1);
-	--sl-color-hairline-shade: rgba(0, 0, 0, 0.5);
-	--sl-color-backdrop-overlay: rgba(9, 10, 9, 0.72);
-
-	/* Fonts */
+	--sl-color-hairline-light: var(--waxlight-line);
+	--sl-color-hairline: var(--waxlight-line-soft);
+	--sl-color-hairline-shade: rgba(0, 0, 0, 0.45);
+	--sl-color-backdrop-overlay: rgba(9, 10, 9, 0.78);
 	--sl-font: var(--waxlight-sans);
 	--sl-font-mono: var(--waxlight-mono);
-
-	/* Layout: mirrors the original header (64px), sidebar (264px), content (820px) */
 	--sl-nav-height: var(--waxlight-header-h);
 	--sl-sidebar-width: var(--waxlight-sidebar-w);
 	--sl-content-width: var(--waxlight-content-w);
-	--sl-content-pad-x: 1.25rem;
+	--sl-content-pad-x: clamp(1rem, 3vw, 2rem);
 	--sl-sidebar-pad-x: 1rem;
-
-	--sl-line-height: 1.65;
+	--sl-line-height: 1.7;
 }
 
-/* --------------------------------------------------------------------------
-   Page background (reproduces the original radial-gradient backdrop).
-   -------------------------------------------------------------------------- */
+html {
+	background: var(--waxlight-night-deep);
+	scroll-padding-top: calc(var(--sl-nav-height) + 1rem);
+}
+
 body {
-	color: var(--waxlight-paper);
+	min-height: 100vh;
+	color: var(--waxlight-paper-muted);
 	background:
-		radial-gradient(circle at 12% 0%, rgba(145, 94, 43, 0.18), transparent 30rem),
-		radial-gradient(circle at 95% 8%, rgba(93, 126, 73, 0.12), transparent 26rem),
-		linear-gradient(180deg, #171310 0, var(--waxlight-night) 24rem, var(--waxlight-night-deep) 100%);
+		radial-gradient(circle at 8% -8%, rgba(145, 94, 43, 0.25), transparent 32rem),
+		radial-gradient(circle at 95% 2%, rgba(93, 126, 73, 0.13), transparent 29rem),
+		linear-gradient(180deg, #171310 0, var(--waxlight-night) 31rem, var(--waxlight-night-deep) 100%);
 	background-attachment: fixed;
 }
 
-/* --------------------------------------------------------------------------
-   Focus visibility (original: 3px amber outline).
-   -------------------------------------------------------------------------- */
-:where(a, button, summary, input, select, [role='button'], dialog):focus-visible {
-	outline: 3px solid var(--waxlight-amber);
+::selection {
+	color: var(--waxlight-night-deep);
+	background: var(--waxlight-amber);
+}
+
+:where(a, button, summary, input, select, [role='button']):focus-visible {
+	outline: 2px solid var(--waxlight-amber);
 	outline-offset: 3px;
 }
 
-/* --------------------------------------------------------------------------
-   Typography: serif headings, like the original Wiki.
-   -------------------------------------------------------------------------- */
-.site-title,
-.sl-markdown-content :is(h1, h2, h3, h4),
-.hero-title,
-.card .title,
-.wax-banner h2,
-.page-title,
-.breadcrumb {
-	font-family: var(--waxlight-serif);
+/* Header */
+[data-waxlight-header] {
+	display: grid;
+	grid-template-columns: minmax(11rem, auto) minmax(14rem, 27rem) minmax(0, 1fr);
+	align-items: center;
+	gap: clamp(0.75rem, 1.5vw, 1.25rem);
+	width: 100%;
 }
 
-/* --------------------------------------------------------------------------
-   Header (site title + search + action buttons + language switcher).
-   -------------------------------------------------------------------------- */
-.header {
-	border-bottom: 1px solid rgba(241, 223, 189, 0.1);
-	background: rgba(18, 16, 13, 0.88);
-	backdrop-filter: blur(14px);
+.title-wrapper {
+	min-width: 0;
+	overflow: clip;
 }
 
 .site-title {
-	color: var(--waxlight-paper);
+	gap: 0.65rem;
+	color: var(--waxlight-paper-bright);
+	font-family: var(--waxlight-serif);
+	font-size: 1.05rem;
 	font-weight: 700;
-	letter-spacing: 0.02em;
+	letter-spacing: 0.015em;
+}
+
+.site-title:hover {
+	color: var(--waxlight-amber);
 }
 
 .site-title img {
-	filter: drop-shadow(0 0 10px rgba(241, 189, 107, 0.4));
-	border-radius: 6px;
+	width: 3.5rem;
+	height: 3.5rem;
+	border-radius: var(--waxlight-radius-sm);
+	filter: drop-shadow(0 0 10px rgba(241, 189, 107, 0.36));
 }
 
 .header-links {
 	display: flex;
+	justify-content: flex-end;
 	align-items: center;
-	gap: 0.5rem;
-	margin-inline-start: auto;
+	gap: 0.45rem;
+	min-width: 0;
 }
 
 .header-link {
 	display: inline-flex;
 	align-items: center;
-	gap: 0.45rem;
-	padding: 0.5rem 0.8125rem;
-	border: 1px solid var(--waxlight-line);
+	gap: 0.4rem;
+	min-height: 2.25rem;
+	padding: 0.4rem 0.65rem;
+	border: 1px solid var(--waxlight-line-soft);
 	border-radius: var(--waxlight-radius-md);
 	color: var(--waxlight-paper-muted);
-	font-size: 0.82rem;
-	font-weight: 700;
-	white-space: nowrap;
+	background: rgba(0, 0, 0, 0.14);
+	font-size: 0.76rem;
+	font-weight: 750;
+	line-height: 1;
 	text-decoration: none;
+	white-space: nowrap;
+	transition:
+		color var(--waxlight-transition),
+		border-color var(--waxlight-transition),
+		background var(--waxlight-transition);
 }
 
 .header-link:hover {
 	color: var(--waxlight-amber);
 	border-color: var(--waxlight-line-strong);
+	background: rgba(217, 140, 67, 0.08);
 	text-decoration: none;
 }
 
 .header-link svg {
-	width: 16px;
-	height: 16px;
+	width: 0.95rem;
+	height: 0.95rem;
+	flex: none;
 }
 
 .header-link--discord {
-	color: #cdd4ff;
-	border-color: rgba(139, 156, 249, 0.4);
-	background: rgba(88, 101, 242, 0.12);
-}
-
-.header-link--discord:hover {
-	border-color: var(--waxlight-blurple);
-	color: #dfe4ff;
+	color: #d5dafe;
+	border-color: rgba(139, 156, 249, 0.34);
+	background: rgba(88, 101, 242, 0.11);
 }
 
 .header-link--support {
 	color: var(--waxlight-amber);
-	border-color: rgba(217, 140, 67, 0.4);
-	background: rgba(217, 140, 67, 0.1);
+	border-color: rgba(217, 140, 67, 0.32);
+	background: rgba(217, 140, 67, 0.08);
 }
 
-.header-link--support:hover {
-	border-color: var(--waxlight-copper);
-}
-
-/* Search control in the header (pill, like the original). */
 site-search > button {
+	width: 100%;
+	min-height: 2.45rem;
 	border: 1px solid var(--waxlight-line) !important;
 	border-radius: var(--waxlight-radius-md) !important;
-	background: rgba(0, 0, 0, 0.28) !important;
 	color: var(--waxlight-mist) !important;
-	font-size: 0.86rem !important;
+	background: rgba(0, 0, 0, 0.28) !important;
+	box-shadow: inset 0 1px rgba(255, 255, 255, 0.025);
 }
 
-site-search > button:focus-visible {
+site-search > button:hover {
 	border-color: var(--waxlight-line-strong) !important;
+	background: rgba(217, 140, 67, 0.055) !important;
 }
 
 site-search kbd {
-	background: rgba(241, 223, 189, 0.08) !important;
 	border-color: var(--waxlight-line) !important;
 	color: var(--waxlight-mist) !important;
+	background: rgba(241, 223, 189, 0.06) !important;
 }
 
-/* Language switcher (pill with amber active state, like the original). */
-starlight-lang-select select {
+starlight-lang-select label {
+	height: 2.25rem;
+	min-height: 2.25rem;
 	border: 1px solid var(--waxlight-line);
-	border-radius: 999px;
-	background: rgba(0, 0, 0, 0.2);
-	color: var(--waxlight-paper-muted);
-	font-size: 0.76rem;
-	font-weight: 800;
+	border-radius: var(--waxlight-radius-md);
+	color: var(--waxlight-paper-muted) !important;
+	background: rgba(0, 0, 0, 0.22);
+	overflow: hidden;
 }
 
-/* --------------------------------------------------------------------------
-   Sidebar navigation.
-   ------------------------------------------------------------------------- */
-.sidebar .top-level > li > a,
-.sidebar-content > ul.top-level > li > a {
-	padding: 0.4375rem 0.75rem;
+starlight-lang-select label:hover {
+	color: var(--waxlight-paper-bright) !important;
+	border-color: var(--waxlight-line-strong);
+}
+
+starlight-lang-select select {
+	width: 8rem;
+	height: 2.25rem;
+	min-height: 2.25rem;
+	margin-inline: 0;
+	padding: 0.4rem 1.8rem;
+	border: 0 !important;
+	border-radius: 0 !important;
+	color: inherit !important;
+	background: transparent !important;
+	font-size: 0.76rem;
+	font-weight: 750;
+	text-overflow: clip;
+}
+
+starlight-lang-select .label-icon {
+	inset-inline-start: 0.7rem;
+}
+
+starlight-lang-select .caret {
+	inset-inline-end: 0.5rem;
+}
+
+/* Starlight frame */
+body > .page > .header {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid var(--waxlight-line-soft);
+	background: rgba(18, 16, 13, 0.88);
+	backdrop-filter: blur(18px) saturate(1.1);
+}
+
+.sidebar-pane {
+	border-inline-end: 1px solid var(--waxlight-line-soft);
+	box-shadow: 12px 0 28px rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-content {
+	padding-top: 1.35rem !important;
+}
+
+.sidebar .top-level {
+	display: grid;
+	gap: 0.25rem;
+}
+
+.sidebar .top-level > li > a {
+	padding: 0.52rem 0.7rem;
 	border-inline-start: 2px solid transparent;
 	border-radius: 0 var(--waxlight-radius-md) var(--waxlight-radius-md) 0;
 	color: var(--waxlight-paper-muted);
-	font-size: 0.88rem;
+	font-size: 0.87rem;
+	font-weight: 560;
+	transition:
+		color var(--waxlight-transition),
+		background var(--waxlight-transition),
+		border-color var(--waxlight-transition);
 }
 
 .sidebar .top-level > li > a:hover {
-	color: var(--waxlight-paper);
-	background: rgba(217, 140, 67, 0.07);
+	color: var(--waxlight-paper-bright);
+	background: rgba(217, 140, 67, 0.065);
 }
 
 .sidebar .top-level > li > a[aria-current='page'] {
 	border-inline-start-color: var(--waxlight-copper);
 	color: var(--waxlight-amber);
-	background: rgba(217, 140, 67, 0.12);
-	font-weight: 700;
+	background: linear-gradient(90deg, rgba(217, 140, 67, 0.14), rgba(217, 140, 67, 0.04));
+	font-weight: 720;
 }
 
-.sidebar .top-level > li > a[aria-current='page']::after {
-	display: none;
-}
-
-/* Group headers: amber, letterspaced, uppercase — like the original. */
 .sidebar .top-level > li > details > summary {
-	margin: 0 0 6px;
-	padding: 0.4375rem 0.75rem;
+	padding: 0.65rem 0.7rem 0.35rem;
 	color: var(--waxlight-amber);
 	font-size: 0.68rem;
 	font-weight: 800;
-	letter-spacing: 0.16em;
+	letter-spacing: 0.13em;
 	text-transform: uppercase;
 }
 
-.sidebar .top-level > li > details > summary .group-label {
-	color: inherit;
-}
-
 .sidebar .top-level > li > details > summary .caret {
-	display: none;
+	color: var(--waxlight-mist-dim);
 }
 
-/* --------------------------------------------------------------------------
-   Breadcrumb.
-   -------------------------------------------------------------------------- */
-.breadcrumb {
-	margin: 0.5rem 0 1.25rem;
-	padding: 0;
-	border: 0;
-	background: none;
-	color: var(--waxlight-mist);
-	font-size: 0.78rem;
+.sidebar .top-level > li > details > ul {
+	margin-inline-start: 0.65rem;
+	border-inline-start-color: var(--waxlight-line-soft);
 }
 
-.breadcrumb a {
-	color: var(--waxlight-paper-muted);
+/* Main content */
+main {
+	min-width: 0;
 }
 
-/* --------------------------------------------------------------------------
-   Content: headings, links, code, tables.
-   -------------------------------------------------------------------------- */
-.sl-markdown-content h1 {
-	font-size: clamp(2rem, 4.4vw, 3rem);
+.main-pane {
+	min-width: 0;
+}
+
+.content-panel + .content-panel {
+	padding-top: 0;
+}
+
+#starlight-page-title {
+	margin: clamp(1.7rem, 4vw, 3.1rem) 0 0.3rem;
+	color: var(--waxlight-paper-bright);
+	font-family: var(--waxlight-serif);
+	font-size: clamp(2.15rem, 4.5vw, 3.35rem);
 	font-weight: 500;
-	letter-spacing: -0.03em;
+	letter-spacing: -0.035em;
 	line-height: 1.05;
 }
 
+.sl-markdown-content {
+	color: var(--waxlight-paper-muted);
+	font-size: clamp(0.96rem, 0.3vw + 0.9rem, 1.02rem);
+	line-height: 1.72;
+}
+
+.sl-markdown-content > :first-child {
+	margin-top: 0;
+}
+
+.sl-markdown-content :is(h1, h2, h3, h4) {
+	color: var(--waxlight-paper-bright);
+	font-family: var(--waxlight-serif);
+}
+
 .sl-markdown-content h2 {
-	margin-block-start: 2.625rem;
-	padding-top: 0.625rem;
-	border-top: 1px solid rgba(241, 223, 189, 0.08);
-	font-size: 1.65rem;
+	margin-top: 2.8rem;
+	padding-top: 0.8rem;
+	border-top: 1px solid var(--waxlight-line-soft);
+	font-size: clamp(1.55rem, 2.4vw, 1.85rem);
 	font-weight: 500;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.018em;
 }
 
 .sl-markdown-content h3 {
-	font-size: 1.2rem;
+	margin-top: 2rem;
+	font-size: 1.25rem;
 	font-weight: 600;
 }
 
-.sl-markdown-content p {
-	margin-block-end: 0.875rem;
+.sl-markdown-content .sl-heading-wrapper {
+	--sl-anchor-icon-size: 0.68em;
+	--sl-anchor-icon-gap: 0.5em;
 }
 
-.sl-markdown-content a {
-	color: var(--waxlight-amber);
-	text-decoration: none;
-}
-
-.sl-markdown-content a:hover {
-	text-decoration: underline;
+.sl-markdown-content :is(p, li) {
+	max-width: 74ch;
 }
 
 .sl-markdown-content strong {
 	color: var(--waxlight-paper);
 }
 
-.sl-markdown-content :not(pre) > code {
-	padding: 0.125rem 0.375rem;
-	border: 1px solid var(--waxlight-line);
-	border-radius: 5px;
+.sl-markdown-content a {
 	color: var(--waxlight-amber);
-	background: rgba(0, 0, 0, 0.32);
-	font-size: 0.84em;
+	text-decoration-color: rgba(241, 189, 107, 0.35);
+	text-underline-offset: 0.16em;
+}
+
+.sl-markdown-content a:hover {
+	color: var(--waxlight-paper-bright);
+	text-decoration-color: var(--waxlight-amber);
+}
+
+.sl-markdown-content :not(pre) > code {
+	padding: 0.15em 0.4em;
+	border: 1px solid var(--waxlight-line-soft);
+	border-radius: var(--waxlight-radius-sm);
+	color: var(--waxlight-amber);
+	background: rgba(0, 0, 0, 0.28);
+	font-size: 0.86em;
 }
 
 .sl-markdown-content table {
+	display: table;
+	width: 100%;
+	margin: 0;
+	border: 1px solid var(--waxlight-line);
+	border-collapse: collapse;
+	border-radius: var(--waxlight-radius-lg);
+	background: rgba(8, 8, 7, 0.22);
 	font-size: 0.88rem;
 }
 
 .sl-markdown-content :is(th, td) {
-	border: 1px solid var(--waxlight-line);
-	padding: 0.625rem 0.75rem;
+	padding: 0.68rem 0.8rem;
+	border: 1px solid var(--waxlight-line-soft);
+	text-align: start;
+	vertical-align: top;
 }
 
 .sl-markdown-content th {
 	color: var(--waxlight-amber);
 	background: rgba(217, 140, 67, 0.08);
-	font-weight: 700;
+	font-weight: 720;
 }
 
-/* Code blocks (Expressive Code overrides toward the original look). */
+.sl-markdown-content tbody tr:nth-child(even) {
+	background: rgba(241, 223, 189, 0.025);
+}
+
 .expressive-code {
 	--ec-brd: var(--waxlight-line);
 	--ec-brd-rad: var(--waxlight-radius-lg);
@@ -348,211 +410,338 @@ starlight-lang-select select {
 	--ec-frm-ed-act-tab-text: var(--waxlight-amber);
 	--ec-frm-ed-tab-text: var(--waxlight-mist);
 	--ec-code-font-family: var(--waxlight-mono);
-	--ec-toolbar-brd: var(--waxlight-line);
+	--ec-toolbar-brd: var(--waxlight-line-soft);
 	--ec-toolbar-bg: #0a0a08;
 	--ec-toolbar-text: var(--waxlight-mist);
-	--ec-toolbar-btn-bg: transparent;
-	--ec-toolbar-btn-text: var(--waxlight-mist);
-	--ec-frm-inl-1-bg: transparent;
-	margin-block: 1rem 1.25rem;
+	margin: 1.25rem 0;
+	filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.2));
 }
 
-/* --------------------------------------------------------------------------
-   Asides / callouts (maps the original callout styling).
-   -------------------------------------------------------------------------- */
 .starlight-aside {
-	padding: 0.875rem 1rem;
+	margin: 1.25rem 0;
+	padding: 0.95rem 1rem;
 	border: 1px solid var(--waxlight-line);
 	border-inline-start: 3px solid var(--waxlight-copper);
 	border-radius: var(--waxlight-radius-md);
-	background: rgba(217, 140, 67, 0.07);
+	background: rgba(217, 140, 67, 0.065);
+}
+
+.starlight-aside--note {
+	border-inline-start-color: var(--waxlight-blurple);
+	background: rgba(139, 156, 249, 0.075);
+}
+
+.starlight-aside--tip {
+	border-inline-start-color: var(--waxlight-moss);
+	background: rgba(136, 174, 114, 0.075);
 }
 
 .starlight-aside--caution,
 .starlight-aside--danger {
 	border-inline-start-color: var(--waxlight-brick);
-	background: rgba(217, 107, 67, 0.08);
-}
-
-.starlight-aside--tip {
-	border-inline-start-color: var(--waxlight-moss);
-	background: rgba(136, 174, 114, 0.08);
-}
-
-.starlight-aside--note {
-	border-inline-start-color: var(--waxlight-blurple);
-	background: rgba(139, 156, 249, 0.08);
+	background: rgba(217, 107, 67, 0.075);
 }
 
 .starlight-aside__title {
-	font-weight: 800;
-	text-transform: none;
-	font-size: 0.9rem;
-}
-
-/* --------------------------------------------------------------------------
-   Cards (Starlight Card used for feature grids).
-   -------------------------------------------------------------------------- */
-.card {
-	--sl-card-border: var(--waxlight-line);
-	--sl-card-bg: var(--waxlight-night);
-	border-radius: var(--waxlight-radius-card);
-	background: linear-gradient(145deg, rgba(52, 37, 25, 0.6), rgba(18, 16, 13, 0.85));
-	transition:
-		transform var(--waxlight-transition),
-		border-color var(--waxlight-transition);
-}
-
-.card:hover {
-	transform: translateY(-3px);
-	border-color: var(--waxlight-line-strong);
-}
-
-.card .title {
-	color: var(--waxlight-paper);
-	font-weight: 500;
-}
-
-.card .icon {
-	border-color: var(--waxlight-line);
-	background: rgba(217, 140, 67, 0.12);
-	color: var(--waxlight-amber);
-	border-radius: var(--waxlight-radius-md);
-}
-
-.card .body {
-	color: var(--waxlight-paper-muted);
+	color: var(--waxlight-paper-bright);
 	font-size: 0.88rem;
+	font-weight: 800;
 }
 
-/* --------------------------------------------------------------------------
-   Buttons (Starlight LinkButton, mapped to the original .btn).
-   -------------------------------------------------------------------------- */
+/* Homepage */
+.wax-hero {
+	position: relative;
+	isolation: isolate;
+	margin: 0 0 1.6rem;
+	padding: clamp(2.2rem, 6vw, 4.4rem) 0 clamp(1.6rem, 3vw, 2.5rem);
+}
+
+.wax-hero::before {
+	position: absolute;
+	z-index: -1;
+	inset: 1rem auto auto -5rem;
+	width: 22rem;
+	height: 14rem;
+	border-radius: 50%;
+	background: rgba(217, 140, 67, 0.11);
+	filter: blur(65px);
+	content: '';
+	pointer-events: none;
+}
+
+.wax-hero h1 {
+	max-width: 14ch;
+	margin: 0 0 1rem;
+	color: var(--waxlight-paper-bright);
+	font-family: var(--waxlight-serif);
+	font-size: clamp(3rem, 7vw, 5.25rem);
+	font-weight: 500;
+	letter-spacing: -0.045em;
+	line-height: 0.96;
+}
+
+.wax-hero h1 em {
+	color: var(--waxlight-amber);
+	font-weight: 400;
+}
+
+.wax-hero .lead {
+	max-width: 43rem;
+	margin: 0;
+	color: var(--waxlight-paper-muted);
+	font-size: clamp(1.02rem, 1vw + 0.75rem, 1.18rem);
+	line-height: 1.65;
+}
+
+.wax-hero__badges {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin: 1.25rem 0 0.75rem;
+}
+
+.wax-hero__badges span {
+	padding: 0.33rem 0.68rem;
+	border: 1px solid var(--waxlight-line-soft);
+	border-radius: 999px;
+	color: var(--waxlight-mist);
+	background: rgba(0, 0, 0, 0.18);
+	font-size: 0.72rem;
+	font-weight: 720;
+	letter-spacing: 0.02em;
+}
+
+.wax-hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.7rem;
+	margin-top: 1.25rem;
+}
+
 .sl-link-button {
-	--sl-button-bg: rgba(33, 25, 18, 0.78);
-	--sl-button-border: var(--waxlight-line);
-	--sl-button-text: var(--waxlight-paper);
-	border-radius: var(--waxlight-radius-button);
-	font-weight: 800;
-	font-size: 0.9rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.7rem;
+	margin: 0 !important;
+	padding: 0.7rem 1.1rem !important;
+	border: 1px solid var(--waxlight-line) !important;
+	border-radius: var(--waxlight-radius-button) !important;
+	color: var(--waxlight-paper) !important;
+	background: var(--waxlight-surface-raised) !important;
+	font-size: 0.86rem;
+	font-weight: 780;
+	line-height: 1.15;
+	text-decoration: none;
+	box-shadow: var(--waxlight-shadow-sm);
 	transition:
 		transform var(--waxlight-transition),
-		border-color var(--waxlight-transition);
+		border-color var(--waxlight-transition),
+		background var(--waxlight-transition);
 }
 
 .sl-link-button:hover {
 	transform: translateY(-2px);
-	border-color: var(--waxlight-line-strong);
-	background: var(--waxlight-bark-light);
+	border-color: var(--waxlight-line-strong) !important;
+	background: var(--waxlight-bark-light) !important;
+	text-decoration: none;
 }
 
 .sl-link-button.primary {
-	--sl-button-bg: linear-gradient(135deg, var(--waxlight-copper), var(--waxlight-amber));
-	--sl-button-border: transparent;
-	--sl-button-text: #25170b;
+	border-color: transparent !important;
+	color: #25170b !important;
+	background: linear-gradient(135deg, var(--waxlight-copper), var(--waxlight-amber)) !important;
 }
 
-.sl-link-button.primary:hover {
-	--sl-button-bg: linear-gradient(135deg, var(--waxlight-copper), var(--waxlight-amber));
+.wax-hero__action--discord {
+	color: #dfe4ff !important;
+	border-color: rgba(139, 156, 249, 0.4) !important;
+	background: rgba(88, 101, 242, 0.13) !important;
 }
 
-/* --------------------------------------------------------------------------
-   Steps (numbered circles in amber, like the original).
-   -------------------------------------------------------------------------- */
-.sl-steps > li::before {
-	color: #25170b;
-	background: var(--waxlight-amber);
+.wax-hero__action--discord:hover {
+	border-color: rgba(170, 180, 255, 0.7) !important;
+	background: rgba(88, 101, 242, 0.2) !important;
+}
+
+.card-grid {
+	gap: 0.75rem;
+}
+
+.sl-link-card {
+	position: relative;
+	min-height: 0;
+	padding: 0.9rem 1rem !important;
+	border: 1px solid var(--waxlight-line) !important;
+	border-radius: var(--waxlight-radius-card) !important;
+	background: linear-gradient(
+		145deg,
+		var(--waxlight-surface-raised),
+		var(--waxlight-surface)
+	) !important;
+	box-shadow: inset 0 1px rgba(255, 255, 255, 0.025);
+	transition:
+		transform var(--waxlight-transition),
+		border-color var(--waxlight-transition),
+		box-shadow var(--waxlight-transition);
+}
+
+.sl-link-card:hover {
+	transform: translateY(-3px);
+	border-color: var(--waxlight-line-strong) !important;
+	box-shadow: var(--waxlight-shadow-sm);
+}
+
+.sl-link-card .title {
+	color: var(--waxlight-paper-bright);
+	font-family: var(--waxlight-serif);
+	font-size: 1.08rem;
+	font-weight: 600;
+}
+
+.sl-link-card .description {
+	color: var(--waxlight-paper-muted);
+	font-size: 0.84rem;
+	line-height: 1.45;
+}
+
+.sl-link-card .stack {
+	gap: 0.3rem;
+}
+
+.sl-link-card .icon {
+	color: var(--waxlight-copper);
+}
+
+.wax-banner {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 1rem;
+	margin: 2rem 0;
+	padding: 1.25rem 1.35rem;
+	border: 1px solid rgba(139, 156, 249, 0.34);
+	border-radius: 8px 22px 8px 22px;
+	background: linear-gradient(145deg, rgba(88, 101, 242, 0.15), rgba(21, 17, 25, 0.9));
+	box-shadow: var(--waxlight-shadow-sm);
+}
+
+.wax-banner svg {
+	width: 2.7rem;
+	height: 2.7rem;
+	fill: #aab4ff;
+}
+
+.wax-banner h2 {
+	margin: 0 0 0.15rem !important;
+	padding: 0 !important;
+	border: 0 !important;
+	font-family: var(--waxlight-serif);
+	font-size: 1.25rem !important;
+}
+
+.wax-banner p {
+	margin: 0;
+	color: var(--waxlight-paper-muted);
+	font-size: 0.88rem;
+	line-height: 1.5;
+}
+
+.wax-banner .wax-banner__join {
+	min-height: 2.35rem;
+	padding: 0.55rem 0.9rem !important;
+	border-color: rgba(139, 156, 249, 0.48) !important;
+	border-radius: var(--waxlight-radius-md) !important;
+	color: #f0f1ff !important;
+	background: rgba(88, 101, 242, 0.72) !important;
 	box-shadow: none;
-	font-weight: 900;
-	font-size: 0.82rem;
 }
 
-.sl-steps > li::after {
-	background: var(--waxlight-line);
+.wax-banner .wax-banner__join:hover {
+	border-color: #aab4ff !important;
+	background: rgba(88, 101, 242, 0.9) !important;
 }
 
-/* --------------------------------------------------------------------------
-   Prev / next pagination (original .prev-next).
-   -------------------------------------------------------------------------- */
-.pagination-links a {
-	border: 1px solid var(--waxlight-line);
-	border-radius: var(--waxlight-radius-lg);
-	background: rgba(0, 0, 0, 0.16);
-}
-
-.pagination-links a:hover {
-	border-color: var(--waxlight-line-strong);
-	text-decoration: none;
-}
-
-.pagination-links .link-title {
-	color: var(--waxlight-amber);
-	font-size: 0.92rem;
-}
-
-.pagination-links .link-label {
-	color: var(--waxlight-mist);
-	font-size: 0.74rem;
-	font-weight: 700;
+/* TOC and pagination */
+starlight-toc h2 {
+	color: var(--waxlight-mist-dim);
+	font-size: 0.69rem;
+	font-weight: 800;
+	letter-spacing: 0.13em;
 	text-transform: uppercase;
-	letter-spacing: 0.08em;
 }
 
-/* --------------------------------------------------------------------------
-   Table of contents.
-   -------------------------------------------------------------------------- */
 starlight-toc a {
 	color: var(--waxlight-paper-muted);
-	font-size: 0.8rem;
+	font-size: 0.79rem;
 }
 
-starlight-toc a:hover {
-	color: var(--waxlight-amber);
-	text-decoration: none;
-}
-
+starlight-toc a:hover,
 starlight-toc a[aria-current='true'] {
 	color: var(--waxlight-amber);
 }
 
-starlight-toc starlight-toc-item[aria-current='true'] {
+.right-sidebar-panel {
+	border-inline-start-color: var(--waxlight-line-soft) !important;
+}
+
+.pagination-links a {
+	border: 1px solid var(--waxlight-line) !important;
+	border-radius: var(--waxlight-radius-lg) !important;
+	background: var(--waxlight-surface-soft) !important;
+	transition:
+		border-color var(--waxlight-transition),
+		background var(--waxlight-transition);
+}
+
+.pagination-links a:hover {
+	border-color: var(--waxlight-line-strong) !important;
+	background: rgba(217, 140, 67, 0.07) !important;
+}
+
+.pagination-links .link-title {
 	color: var(--waxlight-amber);
 }
 
-/* --------------------------------------------------------------------------
-   Footer (original 4-column footer).
-   -------------------------------------------------------------------------- */
+/* Footer */
 .wax-footer {
-	margin-top: 3rem;
+	margin-top: 3.25rem;
+	padding: 1.5rem 0 0;
 	border-top: 1px solid var(--waxlight-line);
-	background: #0a0a08;
-	font-size: 0.84rem;
+	border-radius: 0;
+	background: transparent;
+	font-size: 0.8rem;
 }
 
 .wax-footer__wrap {
 	display: grid;
-	grid-template-columns: 1.4fr 0.8fr 0.8fr 0.8fr;
-	gap: 1.75rem;
-	width: min(85rem, 100%);
-	margin: 0 auto;
-	padding: 2.625rem 1.25rem 1.875rem;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: clamp(1rem, 3vw, 1.8rem);
 }
 
 .wax-footer h4 {
-	margin: 0 0 0.625rem;
+	margin: 0 0 0.5rem;
 	color: var(--waxlight-paper);
 	font-family: var(--waxlight-serif);
-	font-size: 1.05rem;
+	font-size: 0.95rem;
 }
 
-.wax-footer p,
-.wax-footer a {
-	color: var(--waxlight-mist);
+.wax-footer__about {
+	grid-column: 1 / -1;
+	max-width: 42rem;
+}
+
+.wax-footer p {
+	margin: 0;
+	color: var(--waxlight-mist-dim);
+	line-height: 1.55;
 }
 
 .wax-footer a {
 	display: block;
-	margin-bottom: 6px;
+	width: fit-content;
+	margin-bottom: 0.35rem;
+	color: var(--waxlight-mist);
 	text-decoration: none;
 }
 
@@ -562,170 +751,27 @@ starlight-toc starlight-toc-item[aria-current='true'] {
 
 .wax-footer__bottom {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
-	gap: 1rem;
-	width: min(85rem, 100%);
-	margin: 0 auto;
-	padding: 1rem 1.25rem 1.625rem;
-	border-top: 1px solid var(--waxlight-line);
-	color: #827766;
-	font-size: 0.78rem;
-}
-
-@media (max-width: 56rem) {
-	.wax-footer__wrap {
-		grid-template-columns: 1fr 1fr;
-	}
-
-	.wax-footer__bottom {
-		flex-direction: column;
-		gap: 6px;
-	}
-}
-
-/* --------------------------------------------------------------------------
-   Homepage hero (reproduces the original landing hero).
-   -------------------------------------------------------------------------- */
-.wax-hero {
-	padding: 2.5rem 0 0.625rem;
-}
-
-.wax-hero h1 {
-	margin: 0 0 0.5rem;
-	font-family: var(--waxlight-serif);
-	font-size: clamp(2.5rem, 6vw, 4.2rem);
-	font-weight: 500;
-	letter-spacing: -0.03em;
-	line-height: 1.05;
-}
-
-.wax-hero h1 em {
-	color: var(--waxlight-amber);
-	font-style: italic;
-}
-
-.wax-hero .lead {
-	max-width: 40rem;
-	color: var(--waxlight-paper-muted);
-	font-size: 1.05rem;
-	margin-block-end: 1rem;
-}
-
-.wax-hero__badges {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-	margin: 1rem 0 0.5rem;
-}
-
-.wax-hero__badges span {
-	padding: 5px 11px;
-	border: 1px solid var(--waxlight-line);
-	border-radius: 999px;
-	color: var(--waxlight-paper-muted);
-	background: rgba(0, 0, 0, 0.22);
-	font-size: 0.76rem;
-	font-weight: 700;
-}
-
-.wax-hero__actions {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-	margin: 1.125rem 0;
-}
-
-/* --------------------------------------------------------------------------
-   Discord community banner.
-   -------------------------------------------------------------------------- */
-.wax-banner {
-	display: grid;
-	grid-template-columns: auto 1fr auto;
-	gap: 1.125rem;
 	align-items: center;
-	margin: 1.875rem 0;
-	padding: 1.375rem 1.5rem;
-	border: 1px solid rgba(139, 156, 249, 0.35);
-	border-radius: var(--waxlight-radius-card);
-	background: linear-gradient(150deg, rgba(88, 101, 242, 0.16), rgba(21, 17, 25, 0.9));
+	gap: 0.65rem 1.25rem;
+	margin-top: 1.2rem;
+	padding-top: 0.85rem;
+	border-top: 1px solid var(--waxlight-line-soft);
+	color: var(--waxlight-mist-dim);
+	font-size: 0.73rem;
 }
 
-.wax-banner svg {
-	width: 44px;
-	height: 44px;
-	fill: #aab4ff;
-}
-
-.wax-banner h2 {
-	margin: 0 0 4px;
-	padding: 0;
-	border: 0;
-	font-size: 1.25rem;
-}
-
-.wax-banner p {
+.wax-footer__bottom a {
 	margin: 0;
-	color: var(--waxlight-paper-muted);
-	font-size: 0.92rem;
 }
 
-@media (max-width: 44rem) {
-	.wax-banner {
-		grid-template-columns: 1fr;
-	}
-}
-
-/* --------------------------------------------------------------------------
-   Image zoom (starlight-image-zoom).
-   -------------------------------------------------------------------------- */
-.starlight-image-zoom-zoomable {
-	border-radius: var(--waxlight-radius-lg);
-}
-
-.starlight-image-zoom-control {
-	color: var(--waxlight-amber);
-}
-
-.medium-zoom-overlay {
-	background: rgba(9, 10, 9, 0.88) !important;
-}
-
-/* --------------------------------------------------------------------------
-   Scroll-to-top button (starlight-scroll-to-top).
-   -------------------------------------------------------------------------- */
-body .scroll-to-top-button {
-	width: 47px;
-	height: 47px;
-	border-radius: 50%;
-	background-color: var(--waxlight-copper);
-	border-color: var(--waxlight-amber);
-	color: #25170b;
-	box-shadow: var(--waxlight-shadow);
-}
-
-body .scroll-to-top-button:hover {
-	background-color: var(--waxlight-amber);
-	color: #25170b;
-	border-color: var(--waxlight-amber);
-}
-
-body .scroll-to-top-button:active {
-	background-color: var(--waxlight-copper);
-	color: #25170b;
-}
-
-/* --------------------------------------------------------------------------
-   Pagefind search dialog.
-   -------------------------------------------------------------------------- */
+/* Search, zoom, utilities */
 starlight-search-dialog dialog {
-	background: var(--waxlight-night-nav);
-	border: 1px solid var(--waxlight-line);
-	border-radius: var(--waxlight-radius-lg);
-	box-shadow: var(--waxlight-shadow);
-}
-
-starlight-search-dialog .dialog-frame {
-	background: transparent;
+	border: 1px solid var(--waxlight-line) !important;
+	border-radius: var(--waxlight-radius-xl) !important;
+	background: var(--waxlight-night-nav) !important;
+	box-shadow: var(--waxlight-shadow) !important;
 }
 
 #starlight__search {
@@ -737,39 +783,178 @@ starlight-search-dialog .dialog-frame {
 	--pagefind-ui-tag: rgba(217, 140, 67, 0.14);
 	--pagefind-ui-border-radius: var(--waxlight-radius-md);
 	--pagefind-ui-font: var(--waxlight-sans);
-	--pagefind-ui-font-weight-normal: 400;
-	--pagefind-ui-font-weight-semibold: 600;
 }
 
-/* --------------------------------------------------------------------------
-   Mobile navigation.
-   -------------------------------------------------------------------------- */
-.mobile-menu-toggle {
-	border-color: var(--waxlight-line);
-	border-radius: var(--waxlight-radius-md);
-	color: var(--waxlight-paper);
+.starlight-image-zoom-zoomable,
+.sl-markdown-content img {
+	border-radius: var(--waxlight-radius-lg);
+	box-shadow: var(--waxlight-shadow-sm);
 }
 
-.mobile-menu-toggle:hover {
-	border-color: var(--waxlight-line-strong);
+.medium-zoom-overlay {
+	background: rgba(9, 10, 9, 0.9) !important;
 }
 
-.mobile-menu-footer {
-	border-top: 1px solid var(--waxlight-line);
-	background: var(--waxlight-night);
+body .scroll-to-top-button {
+	width: 2.75rem !important;
+	height: 2.75rem !important;
+	border: 1px solid var(--waxlight-line-strong) !important;
+	border-radius: var(--waxlight-radius-button) !important;
+	color: var(--waxlight-amber) !important;
+	background: var(--waxlight-surface-raised) !important;
+	box-shadow: var(--waxlight-shadow-sm) !important;
 }
 
-.mobile-menu-footer .mobile-menu-title {
-	color: var(--waxlight-mist);
+body .scroll-to-top-button:hover {
+	color: var(--waxlight-paper-bright) !important;
+	border-color: var(--waxlight-amber) !important;
+	background: var(--waxlight-bark-light) !important;
+	box-shadow: var(--waxlight-shadow-sm) !important;
 }
 
-.mobile-menu-footer a {
-	color: var(--waxlight-amber);
+body .scroll-to-top-button:active {
+	color: var(--waxlight-paper-bright) !important;
+	background: var(--waxlight-bark) !important;
 }
 
-/* --------------------------------------------------------------------------
-   Motion preferences.
-   -------------------------------------------------------------------------- */
+@media (max-width: 79rem) {
+	.header-link span {
+		display: none;
+	}
+
+	.header-link {
+		width: 2.25rem;
+		justify-content: center;
+		padding-inline: 0;
+	}
+}
+
+@media (min-width: 50.001rem) and (max-width: 64rem) {
+	:root {
+		--sl-sidebar-width: 14.5rem;
+		--sl-content-pad-x: 1.5rem;
+	}
+
+	[data-waxlight-header] {
+		grid-template-columns: minmax(11rem, auto) minmax(13rem, 1fr) auto;
+		gap: 0.75rem;
+	}
+
+	.header-links > .header-link {
+		display: none;
+	}
+
+	.sidebar-content {
+		padding-inline: 0.8rem;
+	}
+
+	#starlight-page-title {
+		font-size: clamp(2.25rem, 5vw, 3rem);
+	}
+}
+
+@media (max-width: 50rem) {
+	:root {
+		--sl-content-pad-x: clamp(1rem, 4vw, 1.5rem);
+	}
+
+	[data-waxlight-header] {
+		display: grid;
+		grid-template-columns: minmax(10rem, 1fr) auto;
+		gap: 0.75rem;
+	}
+
+	.header-links {
+		display: none;
+	}
+
+	.site-title span {
+		font-size: 0.96rem;
+	}
+
+	.wax-hero {
+		margin-bottom: 1rem;
+		padding-top: 1.25rem;
+	}
+
+	.wax-hero h1 {
+		font-size: clamp(2.7rem, 15vw, 4.1rem);
+	}
+
+	.wax-banner {
+		grid-template-columns: auto minmax(0, 1fr);
+	}
+
+	.wax-banner .sl-link-button {
+		grid-column: 1 / -1;
+		justify-self: start;
+	}
+
+	.wax-footer__wrap {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.sl-link-card {
+		padding: 0.85rem 0.9rem !important;
+	}
+}
+
+@media (max-width: 34rem) {
+	:root {
+		--sl-content-pad-x: 1rem;
+	}
+
+	[data-waxlight-header] {
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: 0.6rem;
+	}
+
+	.site-title span {
+		display: none;
+	}
+
+	.site-title img {
+		width: 2.625rem;
+		height: 2.625rem;
+	}
+
+	.wax-hero__actions {
+		display: flex;
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.wax-hero__actions .sl-link-button {
+		width: auto;
+	}
+
+	.wax-banner {
+		grid-template-columns: 1fr;
+		padding: 1.1rem;
+	}
+
+	.wax-banner .sl-link-button {
+		grid-column: auto;
+	}
+
+	.wax-footer__wrap {
+		grid-template-columns: 1fr;
+	}
+
+	.wax-footer__about {
+		grid-column: auto;
+	}
+
+	.wax-footer__bottom {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.sl-markdown-content :is(th, td) {
+		padding: 0.55rem 0.65rem;
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 	*,
 	::before,
@@ -781,22 +966,17 @@ starlight-search-dialog .dialog-frame {
 	}
 }
 
-/* --------------------------------------------------------------------------
-   Print: readable light-on-white output.
-   -------------------------------------------------------------------------- */
 @media print {
 	body {
-		background: #fff;
 		color: #000;
+		background: #fff;
 	}
 
 	.header,
 	.sidebar,
 	starlight-toc,
-	.mobile-menu-toggle,
 	.scroll-to-top-button,
 	.pagination-links,
-	.edit-link,
 	.wax-footer {
 		display: none !important;
 	}

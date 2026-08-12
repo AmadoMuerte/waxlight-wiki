@@ -3,7 +3,7 @@
 // original Wiki's action links (Discord, Support, GitHub, Download).
 import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
 import Search from '@astrojs/starlight/components/Search.astro';
-import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
+import SiteTitle from './SiteTitle.astro';
 import config from 'virtual:starlight/user-config';
 
 const LINKS = {
@@ -17,7 +17,7 @@ const shouldRenderSearch =
 	config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
 ---
 
-<div class="header">
+<div class="header" data-waxlight-header>
 	<div class="title-wrapper sl-flex">
 		<SiteTitle />
 	</div>
@@ -25,7 +25,13 @@ const shouldRenderSearch =
 		{shouldRenderSearch && <Search />}
 	</div>
 	<nav class="header-links sl-hidden md:sl-flex print:hidden" aria-label="Waxlight links">
-		<a class="header-link header-link--discord" href={LINKS.discord} target="_blank" rel="noopener">
+		<a
+			class="header-link header-link--discord"
+			href={LINKS.discord}
+			target="_blank"
+			rel="noopener"
+			title={Astro.locals.t('waxlight.discord')}
+		>
 			<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 				<path
 					d="M20.32 4.37a19.8 19.8 0 0 0-4.93-1.51 13.8 13.8 0 0 0-.64 1.28 18.3 18.3 0 0 0-5.5 0 13.8 13.8 0 0 0-.64-1.28c-1.71.29-3.37.8-4.93 1.51A20.3 20.3 0 0 0 .1 18.06a19.9 19.9 0 0 0 6.07 3.03c.49-.66.93-1.37 1.3-2.1a12.9 12.9 0 0 1-2.05-.98c.17-.12.34-.25.5-.38a14.2 14.2 0 0 0 12.16 0c.16.13.33.26.5.38-.65.39-1.34.72-2.05.98.37.73.81 1.44 1.3 2.1a19.9 19.9 0 0 0 6.07-3.03 20.3 20.3 0 0 0-3.58-13.69ZM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42s.95-2.42 2.16-2.42 2.18 1.09 2.16 2.42c0 1.34-.95 2.42-2.16 2.42Zm7.96 0c-1.18 0-2.16-1.08-2.16-2.42s.95-2.42 2.16-2.42 2.18 1.09 2.16 2.42c0 1.34-.95 2.42-2.16 2.42Z"
@@ -33,7 +39,13 @@ const shouldRenderSearch =
 			</svg>
 			<span>{Astro.locals.t('waxlight.discord')}</span>
 		</a>
-		<a class="header-link header-link--support" href={LINKS.support} target="_blank" rel="noopener">
+		<a
+			class="header-link header-link--support"
+			href={LINKS.support}
+			target="_blank"
+			rel="noopener"
+			title={Astro.locals.t('waxlight.support')}
+		>
 			<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 				<path
 					d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
@@ -41,7 +53,7 @@ const shouldRenderSearch =
 			</svg>
 			<span>{Astro.locals.t('waxlight.support')}</span>
 		</a>
-		<a class="header-link" href={LINKS.github} target="_blank" rel="noopener">
+		<a class="header-link" href={LINKS.github} target="_blank" rel="noopener" title="GitHub">
 			<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 				<path
 					d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.16.59.67.5A10 10 0 0 0 22 12 10 10 0 0 0 12 2Z"
@@ -49,7 +61,13 @@ const shouldRenderSearch =
 			</svg>
 			<span>GitHub</span>
 		</a>
-		<a class="header-link" href={LINKS.releases} target="_blank" rel="noopener">
+		<a
+			class="header-link"
+			href={LINKS.releases}
+			target="_blank"
+			rel="noopener"
+			title={Astro.locals.t('waxlight.download')}
+		>
 			<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 				<path
 					d="M8.29 13.29a1 1 0 0 0 0 1.42l3 3a1 1 0 0 0 1.42 0l3-3a1 1 0 0 0-1.42-1.42L13 14.59V3a1 1 0 0 0-2 0v11.59l-1.29-1.3a1 1 0 0 0-1.42 0ZM18 9h-2a1 1 0 0 0 0 2h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h2a1 1 0 0 0 0-2H6a3 3 0 0 0-3 3v7a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-7a3 3 0 0 0-3-3Z"

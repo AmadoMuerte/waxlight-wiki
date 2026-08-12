@@ -13,6 +13,9 @@
 	--waxlight-night-nav: #171310;
 	--waxlight-bark: #211912;
 	--waxlight-bark-light: #342519;
+	--waxlight-surface: rgba(24, 20, 16, 0.82);
+	--waxlight-surface-raised: rgba(38, 29, 21, 0.86);
+	--waxlight-surface-soft: rgba(241, 223, 189, 0.045);
 
 	/* Text */
 	--waxlight-paper: #f1dfbd;
@@ -30,7 +33,9 @@
 
 	/* Lines & shadows */
 	--waxlight-line: rgba(241, 223, 189, 0.16);
+	--waxlight-line-soft: rgba(241, 223, 189, 0.09);
 	--waxlight-line-strong: rgba(217, 140, 67, 0.48);
+	--waxlight-shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.24);
 	--waxlight-shadow: 0 22px 58px rgba(0, 0, 0, 0.42);
 
 	/* Typography */
@@ -41,8 +46,8 @@
 
 	/* Layout */
 	--waxlight-header-h: 4rem;
-	--waxlight-sidebar-w: 16.5rem;
-	--waxlight-content-w: 51rem;
+	--waxlight-sidebar-w: 17rem;
+	--waxlight-content-w: 48rem;
 
 	/* Radii */
 	--waxlight-radius-sm: 6px;
@@ -63,6 +68,7 @@
 	--color-night-nav: var(--waxlight-night-nav);
 	--color-bark: var(--waxlight-bark);
 	--color-bark-light: var(--waxlight-bark-light);
+	--color-surface: var(--waxlight-surface);
 	--color-paper: var(--waxlight-paper);
 	--color-paper-bright: var(--waxlight-paper-bright);
 	--color-paper-muted: var(--waxlight-paper-muted);
