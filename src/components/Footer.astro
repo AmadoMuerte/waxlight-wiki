@@ -1,5 +1,6 @@
 ---
 // Waxlight footer: the original Wiki's four-column footer.
+import EditLink from '@astrojs/starlight/components/EditLink.astro';
 import config from 'virtual:starlight/user-config';
 
 const LINKS = {
@@ -46,6 +47,7 @@ const prefix = `/${locale}`;
 	</div>
 	<div class="wax-footer__bottom">
 		<span>{t('waxlight.footerLicense')}</span>
+		<EditLink />
 		<span>© 2026 AmadoMuerte</span>
 	</div>
 </footer>

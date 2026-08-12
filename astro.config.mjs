@@ -35,7 +35,7 @@ export default defineConfig({
 			},
 			plugins: [starlightImageZoom(), starlightGithubAlerts(), starlightScrollToTop()],
 			editLink: {
-				baseUrl: 'https://github.com/AmadoMuerte/waxlight-wiki/edit/main/src/content/docs/',
+				baseUrl: 'https://github.com/AmadoMuerte/waxlight-wiki/edit/main/',
 			},
 			customCss: ['./src/styles/global.css'],
 			credits: false,
