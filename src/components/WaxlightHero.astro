@@ -1,0 +1,40 @@
+---
+// Waxlight homepage hero, reproducing the original landing hero
+// (serif headline, lead, badges, primary actions).
+const t = Astro.locals.t;
+
+const LINKS = {
+	discord: 'https://discord.gg/CrRHvg9UVw',
+	releases: 'https://github.com/AmadoMuerte/Waxlight-launcher/releases/latest',
+};
+
+const { locale } = Astro.locals.starlightRoute;
+const prefix = `/${locale}`;
+
+const badges = [
+	t('waxlight.badgeLicense'),
+	t('waxlight.badgeWindows'),
+	t('waxlight.badgeLinux'),
+	t('waxlight.badgeLanguages'),
+	t('waxlight.badgeOpenSource'),
+];
+---
+
+<section class="wax-hero">
+	<h1>Waxlight <em>Wiki</em></h1>
+	<p class="lead">{t('waxlight.heroLead')}</p>
+	<div class="wax-hero__badges">
+		{badges.map((badge) => <span>{badge}</span>)}
+	</div>
+	<div class="wax-hero__actions">
+		<a class="sl-link-button primary" href={`${prefix}/getting-started/`}>
+			{t('waxlight.heroStart')}
+		</a>
+		<a class="sl-link-button" href={LINKS.releases} target="_blank" rel="noopener">
+			{t('waxlight.heroDownloadGithub')}
+		</a>
+		<a class="sl-link-button" href={LINKS.discord} target="_blank" rel="noopener">
+			{t('waxlight.heroDiscordServer')}
+		</a>
+	</div>
+</section>

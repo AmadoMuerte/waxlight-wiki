@@ -1,0 +1,11 @@
+---
+// The homepage renders its own hero headline (WaxlightHero), so Starlight's
+// default page title is suppressed there to avoid a duplicate <h1>.
+import config from 'virtual:starlight/user-config';
+
+const { entry } = Astro.locals.starlightRoute;
+const isHomepage =
+	entry.id === '' || Object.keys(config.locales as Record<string, unknown>).includes(entry.id);
+---
+
+{!isHomepage && <h1 id="starlight-page-title">{entry.data.title}</h1>}

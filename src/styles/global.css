@@ -1,0 +1,12 @@
+/* ==========================================================================
+   Global stylesheet: wires Tailwind + the Starlight Tailwind bridge into the
+   Waxlight token layer, then loads component styles.
+   ========================================================================== */
+
+@layer base, starlight, theme, components, utilities;
+
+@import '@astrojs/starlight-tailwind';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import './tokens.css' layer(theme);
+@import './components.css' layer(components);

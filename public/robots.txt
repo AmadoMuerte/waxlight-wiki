@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amadomuerte.github.io/waxlight-wiki/sitemap-index.xml

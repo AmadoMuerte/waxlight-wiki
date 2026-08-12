@@ -1,0 +1,10 @@
+---
+// Waxlight Wiki is a dark-only site (as the original Wiki).
+// This override forces `data-theme="dark"` before paint instead of
+// following the OS `prefers-color-scheme`, keeping the Waxlight identity
+// and avoiding a flash of an unstyled light layout.
+---
+
+<script is:inline>
+	document.documentElement.dataset.theme = 'dark';
+</script>

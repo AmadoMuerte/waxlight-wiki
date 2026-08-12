@@ -1,0 +1,31 @@
+---
+// Section card grids for the homepage (features / policies).
+// Titles and descriptions come straight from the docs collection, so the
+// homepage never drifts from the actual pages.
+import { getCollection } from 'astro:content';
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+interface Props {
+	section: 'features' | 'policies';
+}
+
+const { section } = Astro.props;
+const { locale } = Astro.locals.starlightRoute;
+const prefix = `${locale}/`;
+
+const pages = (await getCollection('docs'))
+	.filter((entry) => entry.id.startsWith(`${prefix}${section}/`))
+	.sort(
+		(a, b) =>
+			(a.data.sidebar?.order ?? Number.MAX_SAFE_INTEGER) -
+			(b.data.sidebar?.order ?? Number.MAX_SAFE_INTEGER),
+	);
+---
+
+<CardGrid>
+	{
+		pages.map((page) => (
+			<LinkCard title={page.data.title} href={`/${page.id}/`} description={page.data.description} />
+		))
+	}
+</CardGrid>

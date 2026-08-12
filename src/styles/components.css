@@ -1,0 +1,808 @@
+/* ==========================================================================
+   Waxlight theme for Starlight.
+   Maps the Waxlight design tokens onto Starlight's `--sl-*` variable layer
+   and styles Starlight's components to reproduce the original Wiki look.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Starlight theme variables (dark). The original Waxlight Wiki is a
+   dark-only site, so both data-theme values resolve to the same palette.
+   -------------------------------------------------------------------------- */
+:root,
+:root[data-theme='dark'],
+:root[data-theme='light'],
+[data-theme='dark'] ::backdrop {
+	/* Surfaces */
+	--sl-color-white: var(--waxlight-paper-bright);
+	--sl-color-gray-1: var(--waxlight-paper);
+	--sl-color-gray-2: var(--waxlight-paper-muted);
+	--sl-color-gray-3: var(--waxlight-mist);
+	--sl-color-gray-4: var(--waxlight-mist-dim);
+	--sl-color-gray-5: rgba(241, 223, 189, 0.16);
+	--sl-color-gray-6: var(--waxlight-bark);
+	--sl-color-black: var(--waxlight-night);
+
+	/* Accent: Waxlight amber/copper */
+	--sl-color-accent-low: rgba(217, 140, 67, 0.14);
+	--sl-color-accent: var(--waxlight-amber);
+	--sl-color-accent-high: var(--waxlight-amber);
+	--sl-color-accent-hover: var(--waxlight-copper);
+	--sl-color-accent-dark: var(--waxlight-copper);
+
+	/* Semantic colors */
+	--sl-hue-orange: 27;
+	--sl-color-orange-low: rgba(217, 107, 67, 0.12);
+	--sl-color-orange: var(--waxlight-brick);
+	--sl-color-orange-high: #f0a58c;
+	--sl-hue-green: 96;
+	--sl-color-green-low: rgba(136, 174, 114, 0.12);
+	--sl-color-green: var(--waxlight-moss);
+	--sl-color-green-high: #bcd9ab;
+	--sl-hue-blue: 230;
+	--sl-color-blue-low: rgba(139, 156, 249, 0.14);
+	--sl-color-blue: var(--waxlight-blurple);
+	--sl-color-blue-high: #c4ccfb;
+	--sl-hue-red: 12;
+	--sl-color-red-low: rgba(217, 107, 67, 0.12);
+	--sl-color-red: var(--waxlight-brick);
+	--sl-color-red-high: #f0a58c;
+
+	/* Text & backgrounds */
+	--sl-color-text: var(--sl-color-gray-2);
+	--sl-color-text-accent: var(--waxlight-amber);
+	--sl-color-text-invert: #24170c;
+	--sl-color-bg: var(--waxlight-night);
+	--sl-color-bg-nav: var(--waxlight-night-nav);
+	--sl-color-bg-sidebar: var(--waxlight-night);
+	--sl-color-bg-inline-code: rgba(0, 0, 0, 0.32);
+	--sl-color-bg-accent: var(--waxlight-amber);
+	--sl-color-hairline-light: rgba(241, 223, 189, 0.16);
+	--sl-color-hairline: rgba(241, 223, 189, 0.1);
+	--sl-color-hairline-shade: rgba(0, 0, 0, 0.5);
+	--sl-color-backdrop-overlay: rgba(9, 10, 9, 0.72);
+
+	/* Fonts */
+	--sl-font: var(--waxlight-sans);
+	--sl-font-mono: var(--waxlight-mono);
+
+	/* Layout: mirrors the original header (64px), sidebar (264px), content (820px) */
+	--sl-nav-height: var(--waxlight-header-h);
+	--sl-sidebar-width: var(--waxlight-sidebar-w);
+	--sl-content-width: var(--waxlight-content-w);
+	--sl-content-pad-x: 1.25rem;
+	--sl-sidebar-pad-x: 1rem;
+
+	--sl-line-height: 1.65;
+}
+
+/* --------------------------------------------------------------------------
+   Page background (reproduces the original radial-gradient backdrop).
+   -------------------------------------------------------------------------- */
+body {
+	color: var(--waxlight-paper);
+	background:
+		radial-gradient(circle at 12% 0%, rgba(145, 94, 43, 0.18), transparent 30rem),
+		radial-gradient(circle at 95% 8%, rgba(93, 126, 73, 0.12), transparent 26rem),
+		linear-gradient(180deg, #171310 0, var(--waxlight-night) 24rem, var(--waxlight-night-deep) 100%);
+	background-attachment: fixed;
+}
+
+/* --------------------------------------------------------------------------
+   Focus visibility (original: 3px amber outline).
+   -------------------------------------------------------------------------- */
+:where(a, button, summary, input, select, [role='button'], dialog):focus-visible {
+	outline: 3px solid var(--waxlight-amber);
+	outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Typography: serif headings, like the original Wiki.
+   -------------------------------------------------------------------------- */
+.site-title,
+.sl-markdown-content :is(h1, h2, h3, h4),
+.hero-title,
+.card .title,
+.wax-banner h2,
+.page-title,
+.breadcrumb {
+	font-family: var(--waxlight-serif);
+}
+
+/* --------------------------------------------------------------------------
+   Header (site title + search + action buttons + language switcher).
+   -------------------------------------------------------------------------- */
+.header {
+	border-bottom: 1px solid rgba(241, 223, 189, 0.1);
+	background: rgba(18, 16, 13, 0.88);
+	backdrop-filter: blur(14px);
+}
+
+.site-title {
+	color: var(--waxlight-paper);
+	font-weight: 700;
+	letter-spacing: 0.02em;
+}
+
+.site-title img {
+	filter: drop-shadow(0 0 10px rgba(241, 189, 107, 0.4));
+	border-radius: 6px;
+}
+
+.header-links {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-inline-start: auto;
+}
+
+.header-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	padding: 0.5rem 0.8125rem;
+	border: 1px solid var(--waxlight-line);
+	border-radius: var(--waxlight-radius-md);
+	color: var(--waxlight-paper-muted);
+	font-size: 0.82rem;
+	font-weight: 700;
+	white-space: nowrap;
+	text-decoration: none;
+}
+
+.header-link:hover {
+	color: var(--waxlight-amber);
+	border-color: var(--waxlight-line-strong);
+	text-decoration: none;
+}
+
+.header-link svg {
+	width: 16px;
+	height: 16px;
+}
+
+.header-link--discord {
+	color: #cdd4ff;
+	border-color: rgba(139, 156, 249, 0.4);
+	background: rgba(88, 101, 242, 0.12);
+}
+
+.header-link--discord:hover {
+	border-color: var(--waxlight-blurple);
+	color: #dfe4ff;
+}
+
+.header-link--support {
+	color: var(--waxlight-amber);
+	border-color: rgba(217, 140, 67, 0.4);
+	background: rgba(217, 140, 67, 0.1);
+}
+
+.header-link--support:hover {
+	border-color: var(--waxlight-copper);
+}
+
+/* Search control in the header (pill, like the original). */
+site-search > button {
+	border: 1px solid var(--waxlight-line) !important;
+	border-radius: var(--waxlight-radius-md) !important;
+	background: rgba(0, 0, 0, 0.28) !important;
+	color: var(--waxlight-mist) !important;
+	font-size: 0.86rem !important;
+}
+
+site-search > button:focus-visible {
+	border-color: var(--waxlight-line-strong) !important;
+}
+
+site-search kbd {
+	background: rgba(241, 223, 189, 0.08) !important;
+	border-color: var(--waxlight-line) !important;
+	color: var(--waxlight-mist) !important;
+}
+
+/* Language switcher (pill with amber active state, like the original). */
+starlight-lang-select select {
+	border: 1px solid var(--waxlight-line);
+	border-radius: 999px;
+	background: rgba(0, 0, 0, 0.2);
+	color: var(--waxlight-paper-muted);
+	font-size: 0.76rem;
+	font-weight: 800;
+}
+
+/* --------------------------------------------------------------------------
+   Sidebar navigation.
+   ------------------------------------------------------------------------- */
+.sidebar .top-level > li > a,
+.sidebar-content > ul.top-level > li > a {
+	padding: 0.4375rem 0.75rem;
+	border-inline-start: 2px solid transparent;
+	border-radius: 0 var(--waxlight-radius-md) var(--waxlight-radius-md) 0;
+	color: var(--waxlight-paper-muted);
+	font-size: 0.88rem;
+}
+
+.sidebar .top-level > li > a:hover {
+	color: var(--waxlight-paper);
+	background: rgba(217, 140, 67, 0.07);
+}
+
+.sidebar .top-level > li > a[aria-current='page'] {
+	border-inline-start-color: var(--waxlight-copper);
+	color: var(--waxlight-amber);
+	background: rgba(217, 140, 67, 0.12);
+	font-weight: 700;
+}
+
+.sidebar .top-level > li > a[aria-current='page']::after {
+	display: none;
+}
+
+/* Group headers: amber, letterspaced, uppercase — like the original. */
+.sidebar .top-level > li > details > summary {
+	margin: 0 0 6px;
+	padding: 0.4375rem 0.75rem;
+	color: var(--waxlight-amber);
+	font-size: 0.68rem;
+	font-weight: 800;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+.sidebar .top-level > li > details > summary .group-label {
+	color: inherit;
+}
+
+.sidebar .top-level > li > details > summary .caret {
+	display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Breadcrumb.
+   -------------------------------------------------------------------------- */
+.breadcrumb {
+	margin: 0.5rem 0 1.25rem;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--waxlight-mist);
+	font-size: 0.78rem;
+}
+
+.breadcrumb a {
+	color: var(--waxlight-paper-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Content: headings, links, code, tables.
+   -------------------------------------------------------------------------- */
+.sl-markdown-content h1 {
+	font-size: clamp(2rem, 4.4vw, 3rem);
+	font-weight: 500;
+	letter-spacing: -0.03em;
+	line-height: 1.05;
+}
+
+.sl-markdown-content h2 {
+	margin-block-start: 2.625rem;
+	padding-top: 0.625rem;
+	border-top: 1px solid rgba(241, 223, 189, 0.08);
+	font-size: 1.65rem;
+	font-weight: 500;
+	letter-spacing: -0.02em;
+}
+
+.sl-markdown-content h3 {
+	font-size: 1.2rem;
+	font-weight: 600;
+}
+
+.sl-markdown-content p {
+	margin-block-end: 0.875rem;
+}
+
+.sl-markdown-content a {
+	color: var(--waxlight-amber);
+	text-decoration: none;
+}
+
+.sl-markdown-content a:hover {
+	text-decoration: underline;
+}
+
+.sl-markdown-content strong {
+	color: var(--waxlight-paper);
+}
+
+.sl-markdown-content :not(pre) > code {
+	padding: 0.125rem 0.375rem;
+	border: 1px solid var(--waxlight-line);
+	border-radius: 5px;
+	color: var(--waxlight-amber);
+	background: rgba(0, 0, 0, 0.32);
+	font-size: 0.84em;
+}
+
+.sl-markdown-content table {
+	font-size: 0.88rem;
+}
+
+.sl-markdown-content :is(th, td) {
+	border: 1px solid var(--waxlight-line);
+	padding: 0.625rem 0.75rem;
+}
+
+.sl-markdown-content th {
+	color: var(--waxlight-amber);
+	background: rgba(217, 140, 67, 0.08);
+	font-weight: 700;
+}
+
+/* Code blocks (Expressive Code overrides toward the original look). */
+.expressive-code {
+	--ec-brd: var(--waxlight-line);
+	--ec-brd-rad: var(--waxlight-radius-lg);
+	--ec-bg: #0a0a08;
+	--ec-frm-bg: #0a0a08;
+	--ec-frm-ed-act-tab-bg: rgba(217, 140, 67, 0.08);
+	--ec-frm-ed-act-tab-text: var(--waxlight-amber);
+	--ec-frm-ed-tab-text: var(--waxlight-mist);
+	--ec-code-font-family: var(--waxlight-mono);
+	--ec-toolbar-brd: var(--waxlight-line);
+	--ec-toolbar-bg: #0a0a08;
+	--ec-toolbar-text: var(--waxlight-mist);
+	--ec-toolbar-btn-bg: transparent;
+	--ec-toolbar-btn-text: var(--waxlight-mist);
+	--ec-frm-inl-1-bg: transparent;
+	margin-block: 1rem 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   Asides / callouts (maps the original callout styling).
+   -------------------------------------------------------------------------- */
+.starlight-aside {
+	padding: 0.875rem 1rem;
+	border: 1px solid var(--waxlight-line);
+	border-inline-start: 3px solid var(--waxlight-copper);
+	border-radius: var(--waxlight-radius-md);
+	background: rgba(217, 140, 67, 0.07);
+}
+
+.starlight-aside--caution,
+.starlight-aside--danger {
+	border-inline-start-color: var(--waxlight-brick);
+	background: rgba(217, 107, 67, 0.08);
+}
+
+.starlight-aside--tip {
+	border-inline-start-color: var(--waxlight-moss);
+	background: rgba(136, 174, 114, 0.08);
+}
+
+.starlight-aside--note {
+	border-inline-start-color: var(--waxlight-blurple);
+	background: rgba(139, 156, 249, 0.08);
+}
+
+.starlight-aside__title {
+	font-weight: 800;
+	text-transform: none;
+	font-size: 0.9rem;
+}
+
+/* --------------------------------------------------------------------------
+   Cards (Starlight Card used for feature grids).
+   -------------------------------------------------------------------------- */
+.card {
+	--sl-card-border: var(--waxlight-line);
+	--sl-card-bg: var(--waxlight-night);
+	border-radius: var(--waxlight-radius-card);
+	background: linear-gradient(145deg, rgba(52, 37, 25, 0.6), rgba(18, 16, 13, 0.85));
+	transition:
+		transform var(--waxlight-transition),
+		border-color var(--waxlight-transition);
+}
+
+.card:hover {
+	transform: translateY(-3px);
+	border-color: var(--waxlight-line-strong);
+}
+
+.card .title {
+	color: var(--waxlight-paper);
+	font-weight: 500;
+}
+
+.card .icon {
+	border-color: var(--waxlight-line);
+	background: rgba(217, 140, 67, 0.12);
+	color: var(--waxlight-amber);
+	border-radius: var(--waxlight-radius-md);
+}
+
+.card .body {
+	color: var(--waxlight-paper-muted);
+	font-size: 0.88rem;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons (Starlight LinkButton, mapped to the original .btn).
+   -------------------------------------------------------------------------- */
+.sl-link-button {
+	--sl-button-bg: rgba(33, 25, 18, 0.78);
+	--sl-button-border: var(--waxlight-line);
+	--sl-button-text: var(--waxlight-paper);
+	border-radius: var(--waxlight-radius-button);
+	font-weight: 800;
+	font-size: 0.9rem;
+	transition:
+		transform var(--waxlight-transition),
+		border-color var(--waxlight-transition);
+}
+
+.sl-link-button:hover {
+	transform: translateY(-2px);
+	border-color: var(--waxlight-line-strong);
+	background: var(--waxlight-bark-light);
+}
+
+.sl-link-button.primary {
+	--sl-button-bg: linear-gradient(135deg, var(--waxlight-copper), var(--waxlight-amber));
+	--sl-button-border: transparent;
+	--sl-button-text: #25170b;
+}
+
+.sl-link-button.primary:hover {
+	--sl-button-bg: linear-gradient(135deg, var(--waxlight-copper), var(--waxlight-amber));
+}
+
+/* --------------------------------------------------------------------------
+   Steps (numbered circles in amber, like the original).
+   -------------------------------------------------------------------------- */
+.sl-steps > li::before {
+	color: #25170b;
+	background: var(--waxlight-amber);
+	box-shadow: none;
+	font-weight: 900;
+	font-size: 0.82rem;
+}
+
+.sl-steps > li::after {
+	background: var(--waxlight-line);
+}
+
+/* --------------------------------------------------------------------------
+   Prev / next pagination (original .prev-next).
+   -------------------------------------------------------------------------- */
+.pagination-links a {
+	border: 1px solid var(--waxlight-line);
+	border-radius: var(--waxlight-radius-lg);
+	background: rgba(0, 0, 0, 0.16);
+}
+
+.pagination-links a:hover {
+	border-color: var(--waxlight-line-strong);
+	text-decoration: none;
+}
+
+.pagination-links .link-title {
+	color: var(--waxlight-amber);
+	font-size: 0.92rem;
+}
+
+.pagination-links .link-label {
+	color: var(--waxlight-mist);
+	font-size: 0.74rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+/* --------------------------------------------------------------------------
+   Table of contents.
+   -------------------------------------------------------------------------- */
+starlight-toc a {
+	color: var(--waxlight-paper-muted);
+	font-size: 0.8rem;
+}
+
+starlight-toc a:hover {
+	color: var(--waxlight-amber);
+	text-decoration: none;
+}
+
+starlight-toc a[aria-current='true'] {
+	color: var(--waxlight-amber);
+}
+
+starlight-toc starlight-toc-item[aria-current='true'] {
+	color: var(--waxlight-amber);
+}
+
+/* --------------------------------------------------------------------------
+   Footer (original 4-column footer).
+   -------------------------------------------------------------------------- */
+.wax-footer {
+	margin-top: 3rem;
+	border-top: 1px solid var(--waxlight-line);
+	background: #0a0a08;
+	font-size: 0.84rem;
+}
+
+.wax-footer__wrap {
+	display: grid;
+	grid-template-columns: 1.4fr 0.8fr 0.8fr 0.8fr;
+	gap: 1.75rem;
+	width: min(85rem, 100%);
+	margin: 0 auto;
+	padding: 2.625rem 1.25rem 1.875rem;
+}
+
+.wax-footer h4 {
+	margin: 0 0 0.625rem;
+	color: var(--waxlight-paper);
+	font-family: var(--waxlight-serif);
+	font-size: 1.05rem;
+}
+
+.wax-footer p,
+.wax-footer a {
+	color: var(--waxlight-mist);
+}
+
+.wax-footer a {
+	display: block;
+	margin-bottom: 6px;
+	text-decoration: none;
+}
+
+.wax-footer a:hover {
+	color: var(--waxlight-amber);
+}
+
+.wax-footer__bottom {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	width: min(85rem, 100%);
+	margin: 0 auto;
+	padding: 1rem 1.25rem 1.625rem;
+	border-top: 1px solid var(--waxlight-line);
+	color: #827766;
+	font-size: 0.78rem;
+}
+
+@media (max-width: 56rem) {
+	.wax-footer__wrap {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.wax-footer__bottom {
+		flex-direction: column;
+		gap: 6px;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Homepage hero (reproduces the original landing hero).
+   -------------------------------------------------------------------------- */
+.wax-hero {
+	padding: 2.5rem 0 0.625rem;
+}
+
+.wax-hero h1 {
+	margin: 0 0 0.5rem;
+	font-family: var(--waxlight-serif);
+	font-size: clamp(2.5rem, 6vw, 4.2rem);
+	font-weight: 500;
+	letter-spacing: -0.03em;
+	line-height: 1.05;
+}
+
+.wax-hero h1 em {
+	color: var(--waxlight-amber);
+	font-style: italic;
+}
+
+.wax-hero .lead {
+	max-width: 40rem;
+	color: var(--waxlight-paper-muted);
+	font-size: 1.05rem;
+	margin-block-end: 1rem;
+}
+
+.wax-hero__badges {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 1rem 0 0.5rem;
+}
+
+.wax-hero__badges span {
+	padding: 5px 11px;
+	border: 1px solid var(--waxlight-line);
+	border-radius: 999px;
+	color: var(--waxlight-paper-muted);
+	background: rgba(0, 0, 0, 0.22);
+	font-size: 0.76rem;
+	font-weight: 700;
+}
+
+.wax-hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 1.125rem 0;
+}
+
+/* --------------------------------------------------------------------------
+   Discord community banner.
+   -------------------------------------------------------------------------- */
+.wax-banner {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	gap: 1.125rem;
+	align-items: center;
+	margin: 1.875rem 0;
+	padding: 1.375rem 1.5rem;
+	border: 1px solid rgba(139, 156, 249, 0.35);
+	border-radius: var(--waxlight-radius-card);
+	background: linear-gradient(150deg, rgba(88, 101, 242, 0.16), rgba(21, 17, 25, 0.9));
+}
+
+.wax-banner svg {
+	width: 44px;
+	height: 44px;
+	fill: #aab4ff;
+}
+
+.wax-banner h2 {
+	margin: 0 0 4px;
+	padding: 0;
+	border: 0;
+	font-size: 1.25rem;
+}
+
+.wax-banner p {
+	margin: 0;
+	color: var(--waxlight-paper-muted);
+	font-size: 0.92rem;
+}
+
+@media (max-width: 44rem) {
+	.wax-banner {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Image zoom (starlight-image-zoom).
+   -------------------------------------------------------------------------- */
+.starlight-image-zoom-zoomable {
+	border-radius: var(--waxlight-radius-lg);
+}
+
+.starlight-image-zoom-control {
+	color: var(--waxlight-amber);
+}
+
+.medium-zoom-overlay {
+	background: rgba(9, 10, 9, 0.88) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Scroll-to-top button (starlight-scroll-to-top).
+   -------------------------------------------------------------------------- */
+body .scroll-to-top-button {
+	width: 47px;
+	height: 47px;
+	border-radius: 50%;
+	background-color: var(--waxlight-copper);
+	border-color: var(--waxlight-amber);
+	color: #25170b;
+	box-shadow: var(--waxlight-shadow);
+}
+
+body .scroll-to-top-button:hover {
+	background-color: var(--waxlight-amber);
+	color: #25170b;
+	border-color: var(--waxlight-amber);
+}
+
+body .scroll-to-top-button:active {
+	background-color: var(--waxlight-copper);
+	color: #25170b;
+}
+
+/* --------------------------------------------------------------------------
+   Pagefind search dialog.
+   -------------------------------------------------------------------------- */
+starlight-search-dialog dialog {
+	background: var(--waxlight-night-nav);
+	border: 1px solid var(--waxlight-line);
+	border-radius: var(--waxlight-radius-lg);
+	box-shadow: var(--waxlight-shadow);
+}
+
+starlight-search-dialog .dialog-frame {
+	background: transparent;
+}
+
+#starlight__search {
+	--pagefind-ui-scale: 0.95;
+	--pagefind-ui-primary: var(--waxlight-amber);
+	--pagefind-ui-text: var(--waxlight-paper);
+	--pagefind-ui-background: var(--waxlight-night-nav);
+	--pagefind-ui-border: var(--waxlight-line);
+	--pagefind-ui-tag: rgba(217, 140, 67, 0.14);
+	--pagefind-ui-border-radius: var(--waxlight-radius-md);
+	--pagefind-ui-font: var(--waxlight-sans);
+	--pagefind-ui-font-weight-normal: 400;
+	--pagefind-ui-font-weight-semibold: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile navigation.
+   -------------------------------------------------------------------------- */
+.mobile-menu-toggle {
+	border-color: var(--waxlight-line);
+	border-radius: var(--waxlight-radius-md);
+	color: var(--waxlight-paper);
+}
+
+.mobile-menu-toggle:hover {
+	border-color: var(--waxlight-line-strong);
+}
+
+.mobile-menu-footer {
+	border-top: 1px solid var(--waxlight-line);
+	background: var(--waxlight-night);
+}
+
+.mobile-menu-footer .mobile-menu-title {
+	color: var(--waxlight-mist);
+}
+
+.mobile-menu-footer a {
+	color: var(--waxlight-amber);
+}
+
+/* --------------------------------------------------------------------------
+   Motion preferences.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	::before,
+	::after {
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Print: readable light-on-white output.
+   -------------------------------------------------------------------------- */
+@media print {
+	body {
+		background: #fff;
+		color: #000;
+	}
+
+	.header,
+	.sidebar,
+	starlight-toc,
+	.mobile-menu-toggle,
+	.scroll-to-top-button,
+	.pagination-links,
+	.edit-link,
+	.wax-footer {
+		display: none !important;
+	}
+
+	.sl-markdown-content a {
+		color: #000;
+		text-decoration: underline;
+	}
+}
