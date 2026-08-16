@@ -71,7 +71,7 @@ Yes — the official Waxlight server: [discord.gg/CrRHvg9UVw](https://discord.gg
 
 ### How do I report a bug?
 
-Via [GitHub Issues](https://github.com/AmadoMuerte/Waxlight-launcher/issues). Security vulnerabilities — only privately via the [security policy](/en/policies/security/). Before sending, export the support log — it is redacted automatically and contains no credentials.
+Send the bug report and logs to the [official Discord server](https://discord.gg/CrRHvg9UVw). See [How to report a bug](/en/bug-reports/) for step-by-step instructions. Report security vulnerabilities only privately via the [security policy](/en/policies/security/).
 
 ### How can I support the project?
 

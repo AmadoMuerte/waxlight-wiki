@@ -59,4 +59,4 @@ SHA-256 подтверждает, что файл побайтово совпа�
 
 ## Нужна помощь?
 
-Загляните в [FAQ](/ru/faq/), задайте вопрос на [Discord-сервере](https://discord.gg/CrRHvg9UVw) или откройте [issue на GitHub](https://github.com/AmadoMuerte/Waxlight-launcher/issues).
+Загляните в [FAQ](/ru/faq/), задайте вопрос на [Discord-сервере](https://discord.gg/CrRHvg9UVw) или отправьте туда [баг-репорт](/ru/bug-reports/).

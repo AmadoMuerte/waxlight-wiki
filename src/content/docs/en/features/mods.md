@@ -45,3 +45,5 @@ The update candidate is chosen by priority: the version the catalog marks as lat
 > The analysis downloads nothing and changes nothing in the instance. Updates are applied by an explicit user action through the regular catalog download flow.
 
 Technical details of the analysis library: [modpack.md](https://github.com/AmadoMuerte/Waxlight-launcher/blob/main/docs/modpack.md).
+
+Mod pages can be shared as [waxlight.by links](/en/features/waxlight-links/) that open directly in the launcher.

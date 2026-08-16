@@ -59,4 +59,4 @@ Optional telemetry is **disabled by default**. The Windows installer shows the p
 
 ## Need help?
 
-Check the [FAQ](/en/faq/), ask on the [Discord server](https://discord.gg/CrRHvg9UVw), or open an [issue on GitHub](https://github.com/AmadoMuerte/Waxlight-launcher/issues).
+Check the [FAQ](/en/faq/), ask on the [Discord server](https://discord.gg/CrRHvg9UVw), or submit a [bug report](/en/bug-reports/) there.
