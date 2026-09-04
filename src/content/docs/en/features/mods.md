@@ -13,6 +13,8 @@ The Mods section talks to the official Vintage Story ModDB catalog:
 
 - catalog search and filters;
 - a mod details page with description, versions, and changelogs;
+- sanitized descriptions and screenshots from ModDB;
+- a game-version filter evaluated by the ModDB catalog;
 - installing a chosen mod version into a specific instance;
 - batch mod installation.
 
@@ -43,6 +45,10 @@ The update candidate is chosen by priority: the version the catalog marks as lat
 
 > [!NOTE] A report, not an action
 > The analysis downloads nothing and changes nothing in the instance. Updates are applied by an explicit user action through the regular catalog download flow.
+
+If ModDB cannot be refreshed, Waxlight may continue showing the last successfully fetched catalog
+instead of making the Mods page empty. Treat that data as potentially stale and refresh again when
+the service or network is available.
 
 Technical details of the analysis library: [modpack.md](https://github.com/AmadoMuerte/Waxlight-launcher/blob/main/docs/modpack.md).
 

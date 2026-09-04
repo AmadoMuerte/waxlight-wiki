@@ -15,7 +15,7 @@ sidebar:
 
 ### На каких платформах работает Waxlight?
 
-Windows x64 и Linux x64. Пакеты: установщик и portable ZIP для Windows; `.deb`, `.rpm` и portable `.tar.gz` для Linux.
+Windows x64 и Linux x64. Пакеты: установщик и portable ZIP для Windows; `.deb`, `.rpm` и portable `.tar.gz` для Linux. NixOS поддерживается через официальный Nix flake на `x86_64-linux`; см. страницу [NixOS](/ru/features/nixos/).
 
 ### Где скачивать Waxlight?
 
@@ -31,9 +31,13 @@ Windows x64 и Linux x64. Пакеты: установщик и portable ZIP д�
 
 Так задумано. Поскольку доверенный издатель не настроен, лаунчер после проверки контрольной суммы отклоняет автоматическую установку неподписанных обновлений. Скачайте новую версию вручную со страницы Releases. См. [«Обновления лаунчера»](/ru/features/updates/).
 
+### Почему Vintage Story не запускается в Windows с ошибкой DLL `nanosvg`?
+
+Установите **Microsoft Visual C++ Redistributable 2015–2022 (x64)** со страницы Microsoft [последних поддерживаемых загрузок](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170), затем снова запустите игру.
+
 ### Куда Waxlight складывает данные?
 
-Linux: `~/.config/waxlight/`; Windows: `%AppData%\waxlight\`. Папку можно перенести в **Настройки → Папка данных**.
+Linux: `~/.config/waxlight/`; Windows: `%AppData%\waxlight\`. Папку можно перенести в **Настройки → Папка данных**. Каталог назначения должен быть доступен для записи; для внешнего диска Windows держите его подключённым и выбирайте место, где Waxlight может создавать и перемещать файлы. При ошибке переноса исходные данные остаются на месте.
 
 ## Аккаунты и безопасность
 

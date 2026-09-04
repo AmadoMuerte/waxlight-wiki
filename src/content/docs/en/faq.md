@@ -15,7 +15,7 @@ No. Waxlight is an independent open-source project, not affiliated with or endor
 
 ### Which platforms does Waxlight run on?
 
-Windows x64 and Linux x64. Packages: installer and portable ZIP for Windows; `.deb`, `.rpm`, and portable `.tar.gz` for Linux.
+Windows x64 and Linux x64. Packages: installer and portable ZIP for Windows; `.deb`, `.rpm`, and portable `.tar.gz` for Linux. NixOS is supported through the official Nix flake on `x86_64-linux`; see [NixOS](/en/features/nixos/).
 
 ### Where should I download Waxlight?
 
@@ -31,9 +31,13 @@ Unsigned Waxlight builds may trigger SmartScreen. Download only from the officia
 
 By design. Because no trusted publisher is configured, the launcher rejects automatic installation of unsigned updates after checksum verification. Download the new version manually from the Releases page. See [Launcher updates](/en/features/updates/).
 
+### Why does Vintage Story fail to start on Windows with a `nanosvg` DLL error?
+
+Install the **Microsoft Visual C++ Redistributable 2015–2022 (x64)** from Microsoft's [latest supported downloads](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170), then start the game again.
+
 ### Where does Waxlight store its data?
 
-Linux: `~/.config/waxlight/`; Windows: `%AppData%\waxlight\`. The folder can be relocated in **Settings → Data folder**.
+Linux: `~/.config/waxlight/`; Windows: `%AppData%\waxlight\`. The folder can be relocated in **Settings → Data folder**. The destination must be writable; for an external Windows drive, keep it connected and choose a directory where Waxlight can create and move files. A failed move leaves the original data in place.
 
 ## Accounts and security
 

@@ -19,6 +19,9 @@ Official builds are published **only** on the [GitHub Releases](https://github.c
 | Fedora / RPM x64    | .rpm package (Fedora and RPM-compatible)            | `*-linux-amd64.rpm`             |
 | Other Linux x64     | Portable archive (requires GTK 3 and WebKitGTK 4.1) | `*-linux-amd64.tar.gz`          |
 
+NixOS users should use the [NixOS installation guide](/en/features/nixos/) instead of the
+portable archive. The official flake currently supports `x86_64-linux`.
+
 > [!WARNING] Windows SmartScreen
 > Unsigned Waxlight builds may trigger a Microsoft Defender SmartScreen warning. Download Waxlight only from the official repository's Releases page. See [Code signing](/en/policies/code-signing/) for details.
 
@@ -44,6 +47,11 @@ SHA-256 confirms the file is byte-identical to the release artifact but does **n
 4. **Install mods (optional).** The Mods section is a built-in Vintage Story ModDB browser with search and filters.
 5. **Press Play.** A valid Vintage Story account with access to the game is required.
 
+On Windows, Vintage Story also requires the **Microsoft Visual C++ Redistributable 2015–2022
+(x64)**. Without it, the game may fail to start with `Unable to load DLL 'nanosvg' (or one of
+its dependencies)`. Install it from Microsoft's [latest supported Visual C++ Redistributable
+downloads](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170).
+
 ## Where data is stored
 
 | Platform | Default directory     |
@@ -52,6 +60,11 @@ SHA-256 confirms the file is byte-identical to the release artifact but does **n
 | Windows  | `%AppData%\waxlight\` |
 
 Inside are game versions (`versions`), instances (`instances`), downloads (`downloads`), cache (`cache`), backups (`backups`), logs (`logs`), and the launcher database. The main data folder can be relocated: **Settings → Data folder**. Account credentials stay in the OS credential store regardless.
+
+The new location must exist or be creatable and writable by the current user. This is especially
+important for external drives on Windows: keep the drive connected and choose a directory where
+Waxlight can create and move files. If the target is not writable, the move is stopped and the
+original data remains in place; choose another location or fix its permissions before retrying.
 
 ## Telemetry on first run
 

@@ -32,6 +32,8 @@ Details on the [Code signing](/en/policies/code-signing/) page.
 
 The updater detects the installation mode at runtime. Windows portable copies are not replaced automatically; installed copies receive an installer only after the user initiates the update. The update helper waits for Waxlight to exit, runs the installer silently, and attempts to restart the launcher.
 
+For Nix installations, self-updating is disabled because executables in `/nix/store` are immutable. Update Waxlight through Nix instead; for a user-profile installation, run `nix profile upgrade Waxlight-launcher`. See the [NixOS guide](/en/features/nixos/).
+
 ## SmartScreen and MOTW
 
 The updater does **not** use `Unblock-File`: removing the Mark of the Web bypasses SmartScreen protection. Manual downloads keep Windows' normal MOTW and SmartScreen behavior.
