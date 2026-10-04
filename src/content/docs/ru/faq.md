@@ -79,4 +79,4 @@ Linux: `~/.config/waxlight/`; Windows: `%AppData%\waxlight\`. Папку мож�
 
 ### Как поддержать проект?
 
-Через [страницу поддержки](https://hipolink.net/amadomuerte) — Waxlight бесплатен и развивается на энтузиазме.
+Через [страницу поддержки](https://boosty.to/amadomuerte) — Waxlight бесплатен и развивается на энтузиазме.
