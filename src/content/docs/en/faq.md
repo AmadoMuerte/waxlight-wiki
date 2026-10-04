@@ -79,4 +79,4 @@ Send the bug report and logs to the [official Discord server](https://discord.gg
 
 ### How can I support the project?
 
-Through the [support page](https://hipolink.net/amadomuerte) — Waxlight is free and developed as a labor of love.
+Through the [support page](https://boosty.to/amadomuerte) — Waxlight is free and developed as a labor of love.
