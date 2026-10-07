@@ -34,7 +34,7 @@ export default defineConfig({
 				alt: 'Waxlight',
 				replacesTitle: true,
 			},
-			favicon: '/waxlight.png',
+			favicon: `${base}waxlight.png`,
 			defaultLocale: 'en',
 			locales: {
 				en: { label: 'English', lang: 'en' },
